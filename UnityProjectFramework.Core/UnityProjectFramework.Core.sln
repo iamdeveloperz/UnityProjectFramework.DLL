@@ -11,6 +11,7 @@ Global
 		{B885791C-4196-4B4C-949C-08CA01E3F785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B885791C-4196-4B4C-949C-08CA01E3F785}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B885791C-4196-4B4C-949C-08CA01E3F785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B885791C-4196-4B4C-949C-08CA01E3F785}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{B885791C-4196-4B4C-949C-08CA01E3F785}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

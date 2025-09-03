@@ -1,5 +1,6 @@
 
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace UnityProjectFramework.Core.UpdateLoop
@@ -17,6 +18,7 @@ namespace UnityProjectFramework.Core.UpdateLoop
         
         #region Updates
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Update()
         {
             foreach (var updatable in _registry.Updatables)
@@ -32,6 +34,7 @@ namespace UnityProjectFramework.Core.UpdateLoop
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void FixedUpdate()
         {
             foreach (var updatable in _registry.FixedUpdatables)
@@ -47,6 +50,7 @@ namespace UnityProjectFramework.Core.UpdateLoop
             }
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void LateUpdate()
         {
             foreach (var updatable in _registry.LateUpdatables)

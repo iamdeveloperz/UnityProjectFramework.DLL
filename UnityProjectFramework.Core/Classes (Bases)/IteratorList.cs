@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace UnityProjectFramework.Core
 {
@@ -16,6 +17,7 @@ namespace UnityProjectFramework.Core
 
         public T this[int index]
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 if (index >= 0 && index < Count)
@@ -29,6 +31,7 @@ namespace UnityProjectFramework.Core
 
         #endregion
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Add(T value)
         {
             if (_indexMap.ContainsKey(value))
@@ -40,7 +43,8 @@ namespace UnityProjectFramework.Core
             _indexMap.Add(value, _list.Count - 1);
             return true;
         }
-
+        
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public bool Remove(T value)
         {
             if(!_indexMap.Remove(value, out var indexToRemove))
@@ -75,6 +79,7 @@ namespace UnityProjectFramework.Core
             _indexMap.Clear();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Enumerator GetEnumerator()
         {
             return new Enumerator(this);
@@ -90,7 +95,12 @@ namespace UnityProjectFramework.Core
             private readonly IteratorList<T> _list;
             
             object? IEnumerator.Current => Current;
-            public T Current => _list[_list._index];
+
+            public T Current
+            {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                get => _list[_list._index];
+            }
             
             public Enumerator(IteratorList<T> list)
             {
@@ -98,6 +108,7 @@ namespace UnityProjectFramework.Core
                 Reset();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext()
             {
                 if (_list._index >= _list.Count - 1)
@@ -109,6 +120,7 @@ namespace UnityProjectFramework.Core
                 return true;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Reset()
             {
                 _list._index = -1;
