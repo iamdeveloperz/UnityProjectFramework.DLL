@@ -2,9 +2,15 @@
 using System;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace UnityProjectFramework.Core
 {
+    /// <summary>
+    /// Provides static methods for logging messages in different debug levels.
+    /// Need System.Diagnostics.Conditional to work.
+    /// Pdv.SYMBOL_LOG_ENABLED must be defined to use this class.
+    /// </summary>
     public static class Log
     {
         #region Const & Struct
@@ -25,6 +31,11 @@ namespace UnityProjectFramework.Core
         #endregion
 
         public static DebugLevel Level { get; private set; } = DebugLevel.Error;
+
+        /// <summary>
+        /// Sets the logging level for the application.
+        /// </summary>
+        /// <param name="level">The desired debug level to set. This determines the minimum severity of messages to be logged.</param>
         public static void SetLevel(DebugLevel level)
         {
             Level = level;
@@ -32,6 +43,10 @@ namespace UnityProjectFramework.Core
 
         #region Level #Debug
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(object message)
         {
@@ -41,6 +56,11 @@ namespace UnityProjectFramework.Core
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="hexColor"></param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(object message, string hexColor)
         {
@@ -50,6 +70,11 @@ namespace UnityProjectFramework.Core
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formattedMessage"></param>
+        /// <param name="args"></param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(string formattedMessage, params object[] args)
         {
@@ -63,6 +88,10 @@ namespace UnityProjectFramework.Core
 
         #region Level #Warning
 
+        /// <summary>
+        /// Logs a warning message if the current debug level allows warnings to be logged.
+        /// </summary>
+        /// <param name="message">The warning message to log.</param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void W(object message)
         {
@@ -71,7 +100,11 @@ namespace UnityProjectFramework.Core
                 Debug.LogWarning($"{WARNING_COLOR}[INFO]{COLOR_END} {message}");
             }
         }
-        
+
+        /// <summary>
+        /// Logs a warning message.
+        /// </summary>
+        /// <param name="message">The warning message to log. This provides additional diagnostic information useful during application execution.</param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void W(string formattedMessage, params object[] args)
         {
@@ -85,6 +118,10 @@ namespace UnityProjectFramework.Core
 
         #region Level #Error & Exception
 
+        /// <summary>
+        /// Logs an error level message to the console.
+        /// </summary>
+        /// <param name="message">The message to be logged as an error.</param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void E(object message)
         {
@@ -93,7 +130,12 @@ namespace UnityProjectFramework.Core
                 Debug.LogError($"{ERROR_COLOR}[INFO]{COLOR_END} {message}");
             }
         }
-        
+
+        /// <summary>
+        /// Logs an error message with optional formatted arguments.
+        /// </summary>
+        /// <param name="formattedMessage">The error message that can contain format items.</param>
+        /// <param name="args">An array of objects to format and include in the error message.</param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void E(string formattedMessage, params object[] args)
         {
@@ -103,6 +145,10 @@ namespace UnityProjectFramework.Core
             }
         }
 
+        /// <summary>
+        /// Logs an exception if the current logging level includes exceptions.
+        /// </summary>
+        /// <param name="exception">The exception to log. Contains detailed information about the error that occurred.</param>
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void Ex(Exception exception)
         {

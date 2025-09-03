@@ -3,12 +3,33 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
+        <Company>Architecture HS</Company>
+        <Product>UPF Core</Product>
+        <AssemblyVersion>0.0.0.1</AssemblyVersion>
+        <FileVersion>0.0.0.1</FileVersion>
+        <NeutralLanguage>en</NeutralLanguage>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\..\Assembly Key\UPFCoreKey.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\netstandard2.1\UnityProjectFramework.Core.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\netstandard2.1\UnityProjectFramework.Core.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
       <Reference Include="UnityEngine">
         <HintPath>..\..\..\..\..\..\Applications\Unity\Hub\Editor\6000.2.2f1\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\..\Assembly Key\UPFCoreKey.snk">
+        <Link>UPFCoreKey.snk</Link>
+      </None>
     </ItemGroup>
 
 </Project>

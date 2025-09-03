@@ -5,13 +5,25 @@ using UnityEngine;
 
 namespace UnityProjectFramework.Core.UpdateLoop
 {
+    /// <summary>
+    /// Manages and executes update loops (Update, FixedUpdate, LateUpdate) for registered objects implementing specific update interfaces.
+    /// </summary>
+    /// <remarks>
+    /// The UpdateLoopRunner is singleton-based and automatically initialized during the application's runtime lifecycle.
+    /// It handles registration and execution of objects implementing IUpdatable, IFixedUpdatable, or ILateUpdatable interfaces.
+    /// This ensures that updates are centralized and managed efficiently through a dedicated runner object.
+    /// The instance is created as part of the Unity game object and is marked as non-editable and persistent across scenes during runtime.
+    /// </remarks>
+    /// <threadsafety>
+    /// Not thread-safe. Should only be accessed from Unity's main thread.
+    /// </threadsafety>
     internal sealed class UpdateLoopRunner : MonoBehaviour
     {
         #region Fields
         
         private const string OBJECT_NAME = "[UpdateLoop.Runner] (Not Editable)";
 
-        public static UpdateLoopRunner Instance { get; private set; }
+        internal static UpdateLoopRunner Instance { get; private set; }
 
         private readonly IteratorList<IUpdatable> _updatables = new IteratorList<IUpdatable>();
         private readonly IteratorList<IFixedUpdatable> _fixedUpdatables = new IteratorList<IFixedUpdatable>();
@@ -23,7 +35,18 @@ namespace UnityProjectFramework.Core.UpdateLoop
             _lateUpdatables.Count > 0;
 
         #endregion
-        
+
+        /// <summary>
+        /// Creates an instance of the UpdateLoopRunner as a Unity GameObject, ensuring it is properly initialized and marked as non-editable and persistent across game scenes.
+        /// </summary>
+        /// <remarks>
+        /// This method initializes the UpdateLoopRunner singleton by creating a new GameObject designed specifically for managing update loops.
+        /// The created GameObject is configured with appropriate Unity hide flags to prevent accidental modifications and ensure the GameObject persists across scene loads.
+        /// This method is called internally during the application's runtime lifecycle and should not be invoked directly by user code.
+        /// </remarks>
+        /// <threadsafety>
+        /// This method is not thread-safe and must only be called on Unity's main thread.
+        /// </threadsafety>
         internal static void CreateInstance()
         {
             var gameObject = new GameObject(OBJECT_NAME)
