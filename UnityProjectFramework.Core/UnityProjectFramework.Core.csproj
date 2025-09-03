@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="Algorithm\" />
-      <Folder Include="UpdateLoop\" />
     </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace UnityProjectFramework.Core
         private const string ERROR_COLOR = "<color=#FF6756>";
         private const string COLOR_END = "</color>";
         
-        public enum LoggingLevel
+        public enum DebugLevel
         {
             Info,
             Warning,
@@ -24,8 +24,8 @@ namespace UnityProjectFramework.Core
 
         #endregion
 
-        public static LoggingLevel Level { get; private set; } = LoggingLevel.Error;
-        public static void SetLevel(LoggingLevel level)
+        public static DebugLevel Level { get; private set; } = DebugLevel.Error;
+        public static void SetLevel(DebugLevel level)
         {
             Level = level;
         }
@@ -35,7 +35,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(object message)
         {
-            if (Level >= LoggingLevel.Info)
+            if (Level >= DebugLevel.Info)
             {
                 Debug.Log($"{INFO_COLOR}[INFO]{COLOR_END} {message}");
             }
@@ -44,7 +44,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(object message, string hexColor)
         {
-            if (Level >= LoggingLevel.Info)
+            if (Level >= DebugLevel.Info)
             {
                 Debug.Log($"{INFO_COLOR}[INFO]{COLOR_END} <color={hexColor}>{message}</color>");
             }
@@ -53,7 +53,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void D(string formattedMessage, params object[] args)
         {
-            if (Level >= LoggingLevel.Info)
+            if (Level >= DebugLevel.Info)
             {
                 Debug.LogFormat($"{INFO_COLOR}[INFO]{COLOR_END} {formattedMessage}", args);
             }
@@ -66,7 +66,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void W(object message)
         {
-            if(Level >= LoggingLevel.Warning)
+            if(Level >= DebugLevel.Warning)
             {
                 Debug.LogWarning($"{WARNING_COLOR}[INFO]{COLOR_END} {message}");
             }
@@ -75,7 +75,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void W(string formattedMessage, params object[] args)
         {
-            if(Level >= LoggingLevel.Warning)
+            if(Level >= DebugLevel.Warning)
             {
                 Debug.LogWarningFormat($"{WARNING_COLOR}[INFO]{COLOR_END} {formattedMessage}", args);
             }
@@ -88,7 +88,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void E(object message)
         {
-            if (Level >= LoggingLevel.Error)
+            if (Level >= DebugLevel.Error)
             {
                 Debug.LogError($"{ERROR_COLOR}[INFO]{COLOR_END} {message}");
             }
@@ -97,7 +97,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void E(string formattedMessage, params object[] args)
         {
-            if (Level >= LoggingLevel.Error)
+            if (Level >= DebugLevel.Error)
             {
                 Debug.LogErrorFormat($"{ERROR_COLOR}[INFO]{COLOR_END} {formattedMessage}", args);
             }
@@ -106,7 +106,7 @@ namespace UnityProjectFramework.Core
         [Conditional(Pdv.SYMBOL_LOG_ENABLED)]
         public static void Ex(Exception exception)
         {
-            if (Level >= LoggingLevel.Exception)
+            if (Level >= DebugLevel.Exception)
             {
                 Debug.LogException(exception);
             }
