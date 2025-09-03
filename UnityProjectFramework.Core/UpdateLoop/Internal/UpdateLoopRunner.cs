@@ -54,16 +54,7 @@ namespace UnityProjectFramework.Core.UpdateLoop
                 hideFlags = HideFlags.NotEditable | HideFlags.HideInInspector | HideFlags.DontSave
             };
             
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                gameObject.hideFlags = HideFlags.HideAndDontSave;
-            }
-            else
-#endif
-            {
-                DontDestroyOnLoad(gameObject);
-            }
+            DontDestroyOnLoad(gameObject);
             
             Instance = gameObject.AddComponent<UpdateLoopRunner>();
         }
