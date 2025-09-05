@@ -6,7 +6,7 @@ namespace UnityProjectFramework.Core.UpdateLoop
     /// These methods enable simplified registration and unregistration
     /// of updatable objects to the update loop framework.
     /// </summary>
-    public static class ManagedUpdatableExtensions
+    internal static class ManagedUpdatableExtensions
     {
         /// <summary>
         /// Registers an object implementing the <see cref="IManagedUpdatable"/> interface
