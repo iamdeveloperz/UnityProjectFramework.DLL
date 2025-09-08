@@ -2,6 +2,7 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace UnityProjectFramework.Core.LruPool
@@ -69,8 +70,11 @@ namespace UnityProjectFramework.Core.LruPool
             {
                 _itemToIndex = new Dictionary<T, int>(Math.Max(4, parameters.InitialCapacity), new ReferenceComparer<T>());
             }
-            
-            _backgroundTimer = new Timer(ScanTtlEntry, null, _scanPeriodMs, _scanPeriodMs);
+
+            if (_policy == EvictionPolicy.CapacityGatedTtl && _ttlMs > 0 && _scanPeriodMs > 0)
+            {
+                _backgroundTimer = new Timer(ScanTtlEntry, null, _scanPeriodMs, _scanPeriodMs);
+            }
         }
 
         public void Dispose()
@@ -108,6 +112,7 @@ namespace UnityProjectFramework.Core.LruPool
 
         #region Public API
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Rent()
         {
             T item;
@@ -140,6 +145,7 @@ namespace UnityProjectFramework.Core.LruPool
             return item;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Return(T item)
         {
             if (item == null) return;
@@ -155,13 +161,16 @@ namespace UnityProjectFramework.Core.LruPool
                 e.LastUseTicks = Stopwatch.GetTimestamp();
                 AddToLruTail(idx);
                 _idleCount++;
+                ApplyEvictionOnReturn_NoUnityCalls();
             }
 
             _onReturn?.Invoke(item);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetTtlMilliseconds(int ttlMs) => _ttlMs = Math.Max(0, ttlMs);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetMaxCapacity(int maxCapacity)
         {
             lock (_gate)
