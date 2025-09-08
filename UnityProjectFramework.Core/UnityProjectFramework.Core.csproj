@@ -10,6 +10,7 @@
         <NeutralLanguage>en</NeutralLanguage>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\Assembly Key\UPFCoreKey.snk</AssemblyOriginatorKeyFile>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
