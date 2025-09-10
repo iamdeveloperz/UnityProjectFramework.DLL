@@ -1,8 +1,7 @@
 
-namespace UnityProjectFramework.Core
+namespace UnityProjectFramework.Core;
+
+public static partial class Pdv
 {
-    public static partial class Pdv
-    {
         
-    }
 }
